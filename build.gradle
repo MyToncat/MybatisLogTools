@@ -1,7 +1,21 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '4.0.3'
+
+    // Apply the java plugin to add support for Java
     id 'java'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
 }
 
+sourceCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+//com.pqq.StartMain
+//application {
+//    mainClass = 'com.pqq.StartMain'
+//}
 
 repositories {
     maven { url 'https://maven.aliyun.com/repository/central/'}
@@ -11,6 +25,7 @@ repositories {
     maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
     mavenCentral()
 }
+
 
 group 'com.pqq'
 version '1.0-SNAPSHOT'
@@ -27,10 +42,18 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.3'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.3'
-
+    // https://mvnrepository.com/artifact/com.intellij/forms_rt
+    implementation group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
+    implementation 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
 
 }
 
-test {
-    useJUnitPlatform()
+// Output to build/libs/name.jar
+shadowJar {
+    mainClassName = 'com.pqq.StartMain'
+    classifier = null
+    version = null
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
