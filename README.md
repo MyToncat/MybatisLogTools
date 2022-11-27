@@ -28,3 +28,7 @@
 ## 编译
 - 拉取代码，安装Java 和 Gradle 环境
 - 执行 gradle build  编译打包
+
+
+src/main/resources/images/MybatisLog .png
+src/main/resources/images/JsonFormat.png
