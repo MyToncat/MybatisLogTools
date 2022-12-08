@@ -30,32 +30,6 @@ public class FormatJsonBtnListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String originJson = textPane1.getText();
-        originJson = "{\"name\":\"sojson\",\"age\":4,\"domain\":\"https://www.sojson.com\"}";
-        originJson ="{\n" +
-                "    \"list\": [\n" +
-                "        {\n" +
-                "            \"title\": \"How to parse JSON in Swift 4 - I\",\n" +
-                "            \"series\": \"What's new in Swift 4\",\n" +
-                "            \"created_by\": \"Mars\",\n" +
-                "            \"type\": \"free\",\n" +
-                "            \"created_at\": \"2017-08-23T01:42:42Z\",\n" +
-                "            \"duration\": \"NaN\",\n" +
-                "            \"origin\": \"Ym94dWVpby5jb20=\",\n" +
-                "            \"url\": \"boxueio.com\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"title\": \"How to parse JSON in Swift 4 - II\",\n" +
-                "            \"series\": \"What's new in Swift 4\",\n" +
-                "            \"created_by\": \"Mars\",\n" +
-                "            \"type\": 100 ,\n" +
-                "            \"created_at\": \"2017-08-23T01:42:42Z\",\n" +
-                "            \"duration\": \"NaN\",\n" +
-                "            \"origin\": \"Ym94dWVpby5jb20=\",\n" +
-                "            \"url\": \"boxueio.com\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}\n";
-
         if (StringUtils.isEmpty(originJson)) {
             return;
         }
