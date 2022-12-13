@@ -48,6 +48,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.intellij/forms_rt
     implementation group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
     implementation 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+
+    implementation 'cn.hutool:hutool-all:5.8.10'
+    implementation 'com.github.oshi:oshi-core:5.6.1'
 }
 
 // Output to build/libs/name.jar

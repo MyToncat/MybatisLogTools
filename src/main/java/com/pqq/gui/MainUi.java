@@ -3,10 +3,7 @@ package com.pqq.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.pqq.listener.FormatAction2Listener;
-import com.pqq.listener.FormatActionListener;
-import com.pqq.listener.FormatJsonBtnListener;
-import com.pqq.listener.JTextFieldHintListener;
+import com.pqq.listener.*;
 import com.pqq.utils.Constants;
 
 import javax.swing.*;
@@ -31,6 +28,9 @@ public class MainUi {
     private JTextPane textPane1;
     private JTextPane textPane2;
     private JButton formatJsonBtn;
+    private JTextField portText;
+    private JButton shutDownPortBtn;
+    private JLabel portLabel;
 
 
     public MainUi() {
@@ -79,6 +79,8 @@ public class MainUi {
         formatBtn.addActionListener(new FormatActionListener(sqlTextField, paramField, resultTextPane));
         formatBtn2.addActionListener(new FormatAction2Listener(resultTextPane));
         formatJsonBtn.addActionListener(new FormatJsonBtnListener(textPane1, textPane2));
+        shutDownPortBtn.addActionListener(new ShutDownPortListener(portText));
+
     }
 
     /**
@@ -120,7 +122,7 @@ public class MainUi {
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel1.setToolTipText("Mybatis SQL日志格式化工具区");
-        tabbedPane1.addTab("MybatisFormat", panel1);
+        tabbedPane1.addTab("MyBatis工具", panel1);
         panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(2, 2, new Insets(10, 10, 10, 10), -1, -1));
@@ -162,9 +164,9 @@ public class MainUi {
         resultTextPane = new JTextPane();
         scrollPane1.setViewportView(resultTextPane);
         final JPanel panel4 = new JPanel();
-        panel4.setLayout(new GridLayoutManager(2, 2, new Insets(10, 10, 10, 10), -1, -1));
+        panel4.setLayout(new GridLayoutManager(3, 2, new Insets(10, 10, 10, 10), -1, -1));
         panel4.setToolTipText("JSON工具格式化");
-        tabbedPane1.addTab("JsonFormat", panel4);
+        tabbedPane1.addTab("Json格式化", panel4);
         originPanel = new JScrollPane();
         originPanel.setToolTipText("原始SQL显示区");
         panel4.add(originPanel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
@@ -173,7 +175,7 @@ public class MainUi {
         originPanel.setViewportView(textPane1);
         dealtPanel = new JScrollPane();
         dealtPanel.setToolTipText("处理后的数据显示区");
-        panel4.add(dealtPanel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel4.add(dealtPanel, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         dealtPanel.setBorder(BorderFactory.createTitledBorder(null, "处理数据", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         textPane2 = new JTextPane();
         dealtPanel.setViewportView(textPane2);
@@ -185,6 +187,26 @@ public class MainUi {
         panel5.add(formatJsonBtn, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel5.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final JPanel panel6 = new JPanel();
+        panel6.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
+        tabbedPane1.addTab("其他工具", panel6);
+        final JPanel panel7 = new JPanel();
+        panel7.setLayout(new GridLayoutManager(1, 3, new Insets(10, 10, 0, 0), -1, -1));
+        panel6.add(panel7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel7.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        portLabel = new JLabel();
+        portLabel.setText("Port:");
+        panel7.add(portLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        portText = new JTextField();
+        portText.setText("");
+        panel7.add(portText, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        shutDownPortBtn = new JButton();
+        shutDownPortBtn.setText("关闭端口");
+        panel7.add(shutDownPortBtn, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer3 = new Spacer();
+        panel6.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final Spacer spacer4 = new Spacer();
+        panel6.add(spacer4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     }
 
     /**
@@ -215,4 +237,5 @@ public class MainUi {
     public JComponent $$$getRootComponent$$$() {
         return root;
     }
+
 }
