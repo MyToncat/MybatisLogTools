@@ -35,9 +35,6 @@ public class FormatActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        sqlTextField.setText("UPDATE mp_user SET name=? WHERE id=? AND name=? AND age=? AND email=? AND deleted=0");
-        paramTextField.setText("null, 1(Long), 张三(String), 18(Integer), x@y.com(String)");
-
         // 解析sql
         String dealedSql = MyBatisLogParseUtils.parseSql(sqlTextField.getText(),
                 MyBatisLogParseUtils.parseParams(paramTextField.getText())).toString();
