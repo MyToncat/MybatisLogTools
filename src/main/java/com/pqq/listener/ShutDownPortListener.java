@@ -13,6 +13,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ *  关闭窗口参数
+ */
 public class ShutDownPortListener implements ActionListener {
     private JTextField portText;
     private String cmd= "netstat -ano";

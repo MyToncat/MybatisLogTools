@@ -17,19 +17,18 @@ import java.util.regex.Pattern;
 import static com.pqq.utils.JTextPaneFormatUtils.initAttributeConfig;
 
 public class FormatJsonBtnListener implements ActionListener {
-    JTextPane textPane1;
-    JTextPane textPane2;
+
+    JTextPane textPane;
     ObjectMapper objectMapper;
 
-    public FormatJsonBtnListener(JTextPane textPane1, JTextPane textPane2) {
-        this.textPane1 = textPane1;
-        this.textPane2 = textPane2;
+    public FormatJsonBtnListener(JTextPane textPane) {
+        this.textPane = textPane;
         objectMapper = new ObjectMapper();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String originJson = textPane1.getText();
+        String originJson = textPane.getText();
         if (StringUtils.isEmpty(originJson)) {
             return;
         }
@@ -39,13 +38,13 @@ public class FormatJsonBtnListener implements ActionListener {
             Object obj = objectMapper.readValue(originJson, Object.class);
             // \r影响正则匹配
             String dealtJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj).replaceAll("\r","");
-            textPane2.setText(dealtJson);
+            textPane.setText(dealtJson);
 
             // 高亮Json
             String  pattern =  "\"([a-zA-Z_]+)\" :";
             Pattern compile = Pattern.compile(pattern);
             Matcher matcher = compile.matcher(dealtJson);
-            StyledDocument styledDocument = textPane2.getStyledDocument();
+            StyledDocument styledDocument = textPane.getStyledDocument();
             while (matcher.find()) {
                 styledDocument.setCharacterAttributes(matcher.start(1), matcher.end(1) - matcher.start(1), attributeSetForKey(), false);
             }

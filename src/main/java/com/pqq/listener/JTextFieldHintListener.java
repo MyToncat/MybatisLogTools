@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+/**
+ *   SQl 和 param 输入框提示
+ */
 public class JTextFieldHintListener implements FocusListener {
     private String hintText;
     private JTextField textField;

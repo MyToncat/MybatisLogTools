@@ -1,5 +1,6 @@
 package com.pqq.gui;
 
+import com.formdev.flatlaf.extras.FlatSVGUtils;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -23,17 +24,17 @@ public class MainUi {
     private JButton formatBtn;
     private JTextPane resultTextPane;
     private JButton formatBtn2;
-    private JScrollPane originPanel;
-    private JScrollPane dealtPanel;
-    private JTextPane textPane1;
-    private JTextPane textPane2;
-    private JButton formatJsonBtn;
     private JTextField portText;
     private JButton shutDownPortBtn;
     private JLabel portLabel;
+    private JTextPane jsonText;
+    private JButton sortByKeyButton;
+    private JButton minifyJsonButton;
+    private JButton expandJsonButton;
 
 
     public MainUi() {
+
         // 预初始化
         initConfig();
     }
@@ -69,6 +70,8 @@ public class MainUi {
         frame.setSize(width, height);
         frame.setLocation((drive_width - width) / 2, (drive_height - height) / 2);
         frame.setVisible(true);
+        // * 添加 应用图标
+        frame.setIconImages(FlatSVGUtils.createWindowIconImages("/FlatLaf.svg"));
     }
 
 
@@ -78,9 +81,13 @@ public class MainUi {
     private void initBtn() {
         formatBtn.addActionListener(new FormatActionListener(sqlTextField, paramField, resultTextPane));
         formatBtn2.addActionListener(new FormatAction2Listener(resultTextPane));
-        formatJsonBtn.addActionListener(new FormatJsonBtnListener(textPane1, textPane2));
         shutDownPortBtn.addActionListener(new ShutDownPortListener(portText));
-
+        // json 格式化
+        expandJsonButton.addActionListener(new FormatJsonBtnListener(jsonText));
+        // json 缩小
+        minifyJsonButton.addActionListener(new JsonMinigyListener(jsonText));
+        // json 按 key排序
+        sortByKeyButton.addActionListener(new JsonSortByKeyListener(jsonText));
     }
 
     /**
@@ -122,7 +129,7 @@ public class MainUi {
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel1.setToolTipText("Mybatis SQL日志格式化工具区");
-        tabbedPane1.addTab("MyBatis工具", panel1);
+        tabbedPane1.addTab("  MyBatis ", panel1);
         panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(2, 2, new Insets(10, 10, 10, 10), -1, -1));
@@ -164,29 +171,26 @@ public class MainUi {
         resultTextPane = new JTextPane();
         scrollPane1.setViewportView(resultTextPane);
         final JPanel panel4 = new JPanel();
-        panel4.setLayout(new GridLayoutManager(3, 2, new Insets(10, 10, 10, 10), -1, -1));
-        panel4.setToolTipText("JSON工具格式化");
-        tabbedPane1.addTab("Json格式化", panel4);
-        originPanel = new JScrollPane();
-        originPanel.setToolTipText("原始SQL显示区");
-        panel4.add(originPanel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        originPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-8222594)), "原始数据", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
-        textPane1 = new JTextPane();
-        originPanel.setViewportView(textPane1);
-        dealtPanel = new JScrollPane();
-        dealtPanel.setToolTipText("处理后的数据显示区");
-        panel4.add(dealtPanel, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        dealtPanel.setBorder(BorderFactory.createTitledBorder(null, "处理数据", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
-        textPane2 = new JTextPane();
-        dealtPanel.setViewportView(textPane2);
+        panel4.setLayout(new GridLayoutManager(2, 1, new Insets(10, 10, 10, 10), -1, -1));
+        tabbedPane1.addTab(" Json  ", panel4);
+        final JScrollPane scrollPane2 = new JScrollPane();
+        panel4.add(scrollPane2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        jsonText = new JTextPane();
+        scrollPane2.setViewportView(jsonText);
         final JPanel panel5 = new JPanel();
-        panel5.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
-        panel4.add(panel5, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        formatJsonBtn = new JButton();
-        formatJsonBtn.setText("格式化");
-        panel5.add(formatJsonBtn, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel5.setLayout(new GridLayoutManager(1, 4, new Insets(0, 0, 0, 0), -1, -1));
+        panel4.add(panel5, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        sortByKeyButton = new JButton();
+        sortByKeyButton.setText("Sort by key");
+        panel5.add(sortByKeyButton, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel5.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        minifyJsonButton = new JButton();
+        minifyJsonButton.setText("Minify Json");
+        panel5.add(minifyJsonButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        expandJsonButton = new JButton();
+        expandJsonButton.setText("Expand Json");
+        panel5.add(expandJsonButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedPane1.addTab("其他工具", panel6);
