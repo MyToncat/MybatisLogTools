@@ -151,7 +151,7 @@ public class HttpUtils {
             if (response.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
-                    responseContent = EntityUtils.toString(entity, Constants.UTF_8);
+                    responseContent = EntityUtils.toString(entity, "UTF-8");
                 } else {
                 }
             } else {
