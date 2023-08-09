@@ -1,11 +1,8 @@
 package com.pqq.listener;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.pqq.utils.JsonFormatUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;

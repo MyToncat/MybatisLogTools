@@ -7,16 +7,8 @@ import com.pqq.utils.MyBatisLogParseUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
-import javax.swing.text.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  *   SQL 和 参数组装

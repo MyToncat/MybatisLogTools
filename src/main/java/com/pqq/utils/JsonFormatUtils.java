@@ -19,8 +19,8 @@ public class JsonFormatUtils {
      * @throws JsonProcessingException
      */
     public static String formatJson(String jsonStr) throws JsonProcessingException {
-        Object jsonObject = JsonFormatUtils.Holder.MAPPER.readValue(jsonStr, Object.class);
-        return JsonFormatUtils.Holder.MAPPER.writer(JsonFormatUtils.Holder.DEFAULT_PRETTY_PRINTER).writeValueAsString(jsonObject);
+        Object jsonObject = Holder.MAPPER.readValue(jsonStr, Object.class);
+        return Holder.MAPPER.writer(Holder.DEFAULT_PRETTY_PRINTER).writeValueAsString(jsonObject);
     }
 
     /**
@@ -30,12 +30,12 @@ public class JsonFormatUtils {
      * @throws JsonProcessingException
      */
     public static String minifyJson(String jsonStr) throws JsonProcessingException {
-        Object jsonObject = JsonFormatUtils.Holder.MAPPER.readValue(jsonStr, Object.class);
-        return JsonFormatUtils.Holder.MAPPER.writeValueAsString(jsonObject);
+        Object jsonObject = Holder.MAPPER.readValue(jsonStr, Object.class);
+        return Holder.MAPPER.writeValueAsString(jsonObject);
     }
 
     public static void verifyJson(String jsonStr) throws JsonProcessingException {
-        JsonFormatUtils.Holder.MAPPER.readValue(jsonStr, Object.class);
+        Holder.MAPPER.readValue(jsonStr, Object.class);
     }
 
     /**
@@ -52,7 +52,7 @@ public class JsonFormatUtils {
         }
 
         public DefaultPrettyPrinter createInstance() {
-            return new JsonFormatUtils.CustomPrettyPrinter();
+            return new CustomPrettyPrinter();
         }
     }
 
@@ -61,7 +61,7 @@ public class JsonFormatUtils {
      */
     private static final class Holder {
         public static final ObjectMapper MAPPER = new ObjectMapper();
-        public static final DefaultPrettyPrinter DEFAULT_PRETTY_PRINTER = new JsonFormatUtils.CustomPrettyPrinter();
+        public static final DefaultPrettyPrinter DEFAULT_PRETTY_PRINTER = new CustomPrettyPrinter();
 
         private Holder() {
         }

@@ -1,4 +1,4 @@
-package com.pqq.common.util;
+package com.pqq.utils;
 
 import io.jsonwebtoken.*;
 

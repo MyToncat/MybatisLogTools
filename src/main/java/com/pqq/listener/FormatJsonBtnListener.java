@@ -14,8 +14,6 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.pqq.utils.JTextPaneFormatUtils.initAttributeConfig;
-
 public class FormatJsonBtnListener implements ActionListener {
 
     JTextPane textPane;

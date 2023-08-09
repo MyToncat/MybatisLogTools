@@ -1,15 +1,12 @@
 package com.pqq.listener;
 
 import com.pqq.utils.BasicFormatterUtils;
-import com.pqq.utils.Constants;
 import com.pqq.utils.JTextPaneFormatUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *   格式化SQl
