@@ -3,10 +3,7 @@ package com.pqq;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.util.SystemInfo;
-import com.pqq.gui.MainUi;
-
 import javax.swing.*;
-import java.io.IOException;
 
 public class StartMain {
     public static void main(String[] args) {
@@ -26,6 +23,5 @@ public class StartMain {
         } else if ("dark".equals(theme)) {
             FlatDarkLaf.setup();
         }
-        MainUi mainUi = new MainUi();
     }
 }
